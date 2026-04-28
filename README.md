@@ -1,14 +1,30 @@
+<div align="center">
+
 # Task API — NestJS + PostgreSQL + JWT
 
-API REST para gerenciamento de tarefas com autenticação via JWT, construída com NestJS e TypeScript, seguindo boas práticas de arquitetura modular.
+**API REST para gerenciamento de tarefas com autenticação JWT e arquitetura modular.**
 
-## Tecnologias
+[![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=flat-square&logo=nestjs&logoColor=white)](https://nestjs.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
+[![JWT](https://img.shields.io/badge/JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white)](https://jwt.io/)
 
-![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=flat-square&logo=nestjs&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white)
+> API REST construída com NestJS e TypeScript, seguindo boas práticas de arquitetura modular. Inclui autenticação JWT, CRUD completo de tarefas com isolamento por usuário, validação de DTOs e testes unitários.
+
+</div>
+
+---
+
+## Índice
+
+- [Funcionalidades](#funcionalidades)
+- [Tecnologias](#tecnologias)
+- [Como Rodar](#como-rodar)
+- [Rotas da API](#rotas-da-api)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+
+---
 
 ## Funcionalidades
 
@@ -18,36 +34,25 @@ API REST para gerenciamento de tarefas com autenticação via JWT, construída c
 - **Validação** — DTOs com `class-validator` em todas as entradas
 - **Testes unitários** — cobertura dos serviços de autenticação e tarefas
 
-## Rotas da API
+---
 
-Base URL: `/api/v1`
+## Tecnologias
 
-### Auth
+| Tecnologia | Versão | Uso |
+|---|---|---|
+| NestJS | 11 | Framework principal |
+| TypeScript | 5 | Tipagem estática |
+| PostgreSQL | 16 | Banco de dados relacional |
+| TypeORM | — | ORM e entidades |
+| Passport + JWT | — | Autenticação stateless |
+| bcrypt | — | Hash de senhas |
+| class-validator | — | Validação de DTOs |
+| Docker + Compose | — | Ambiente local containerizado |
+| Jest | — | Testes unitários |
 
-| Método | Rota              | Descrição              | Auth |
-|--------|-------------------|------------------------|------|
-| POST   | `/auth/register`  | Cria conta e retorna token | ❌  |
-| POST   | `/auth/login`     | Login e retorna token  | ❌   |
+---
 
-### Tasks
-
-| Método | Rota           | Descrição                    | Auth |
-|--------|----------------|------------------------------|------|
-| POST   | `/tasks`       | Cria uma nova tarefa         | ✅   |
-| GET    | `/tasks`       | Lista todas as tarefas       | ✅   |
-| GET    | `/tasks/:id`   | Busca tarefa por ID          | ✅   |
-| PATCH  | `/tasks/:id`   | Atualiza tarefa              | ✅   |
-| DELETE | `/tasks/:id`   | Remove tarefa                | ✅   |
-
-## Status de tarefa
-
-| Valor         | Descrição      |
-|---------------|----------------|
-| `pending`     | Pendente       |
-| `in_progress` | Em andamento   |
-| `done`        | Concluída      |
-
-## Como rodar localmente
+## Como Rodar
 
 **Pré-requisitos:** Node.js 18+, Docker
 
@@ -72,7 +77,7 @@ npm run start:dev
 
 A API estará disponível em `http://localhost:3000/api/v1`.
 
-## Variáveis de ambiente
+### Variáveis de ambiente
 
 ```env
 PORT=3000
@@ -87,7 +92,48 @@ DB_NAME=taskdb
 JWT_SECRET=sua_chave_secreta_aqui
 ```
 
-## Exemplo de uso
+### Testes
+
+```bash
+# Testes unitários
+npm run test
+
+# Cobertura de testes
+npm run test:cov
+```
+
+---
+
+## Rotas da API
+
+Base URL: `/api/v1`
+
+### Auth
+
+| Método | Rota | Descrição | Auth |
+|---|---|---|---|
+| POST | `/auth/register` | Cria conta e retorna token | ❌ |
+| POST | `/auth/login` | Login e retorna token | ❌ |
+
+### Tasks
+
+| Método | Rota | Descrição | Auth |
+|---|---|---|---|
+| POST | `/tasks` | Cria uma nova tarefa | ✅ |
+| GET | `/tasks` | Lista todas as tarefas | ✅ |
+| GET | `/tasks/:id` | Busca tarefa por ID | ✅ |
+| PATCH | `/tasks/:id` | Atualiza tarefa | ✅ |
+| DELETE | `/tasks/:id` | Remove tarefa | ✅ |
+
+### Status de tarefa
+
+| Valor | Descrição |
+|---|---|
+| `pending` | Pendente |
+| `in_progress` | Em andamento |
+| `done` | Concluída |
+
+### Exemplos
 
 **Criar conta:**
 ```http
@@ -115,20 +161,9 @@ Content-Type: application/json
 }
 ```
 
-## Testes
+---
 
-```bash
-# Testes unitários
-npm run test
-
-# Cobertura de testes
-npm run test:cov
-
-# Testes e2e
-npm run test:e2e
-```
-
-## Estrutura do projeto
+## Estrutura do Projeto
 
 ```
 src/
@@ -155,10 +190,10 @@ src/
 └── main.ts
 ```
 
-## CI/CD
-
-O projeto inclui um `Jenkinsfile` configurado para pipeline de build e um `Dockerfile` para containerização.
-
 ---
 
-Feito por [Nicolas Cardoso](https://github.com/NicolasCardoso2) · [LinkedIn](https://www.linkedin.com/in/nicolas-cardoso-vilha-do-lago/)
+<div align="center">
+
+Feito por [Nicolas Cardoso](https://github.com/NicolasCardoso2) · [LinkedIn](https://www.linkedin.com/in/nicolas-cardoso-vilha-do-lago-2483b1322/)
+
+</div>
